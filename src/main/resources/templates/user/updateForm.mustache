@@ -1,0 +1,24 @@
+{{> /layout/header}}
+
+<!-- 컨테이너 시작 -->
+<div class="container mt-3">
+
+    <!-- 회원수정 폼 시작 -->
+    <form>
+        <div class="mb-3 mt-3">
+            <input type="text" class="form-control" value="유저네임" readonly>
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" value="패스워드" required>
+        </div>
+        <div class="mb-3">
+            <input type="email" class="form-control" value="이메일" required>
+        </div>
+        <button type="button" class="btn btn-secondary">수정완료</button>
+    </form>
+    <!-- 회원수정 폼 끝 -->
+
+</div>
+<!-- 컨테이너 끝 -->
+
+{{> /layout/footer}}

@@ -1,0 +1,27 @@
+{{> /layout/header}}
+
+<!-- 컨테이너 시작 -->
+<div class="container mt-3">
+
+    <!--  글쓰기 폼 시작 -->
+    <form>
+        <div class="mb-3 mt-3">
+            <input type="text" class="form-control" placeholder="Enter title">
+        </div>
+        <div class="mb-3">
+            <textarea rows="10" class="form-control" id="content"></textarea>
+        </div>
+        <button type="button" class="btn btn-secondary">글쓰기</button>
+    </form>
+    <!-- 글쓰기 폼 끝 -->
+
+</div>
+<!-- 컨테이너 끝 -->
+
+<script>
+    $('#content').summernote({
+        height: 300
+    });
+</script>
+
+{{> /layout/footer}}
