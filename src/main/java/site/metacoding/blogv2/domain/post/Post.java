@@ -35,7 +35,7 @@ public class Post { // N (드라이빙 테이블, FK의 주인)
     @Column(length = 300, nullable = false)
     private String title;
 
-    @Lob // CLOB 4GB 문자 타입
+    @Lob
     @Column(nullable = false)
     private String content;
 
