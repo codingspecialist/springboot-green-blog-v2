@@ -20,5 +20,6 @@ public class UserApiController {
         userService.회원가입(joinDto);
 
         return new ResponseDto<String>(1, "회원가입성공", null);
+
     }
 }
