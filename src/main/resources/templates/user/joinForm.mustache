@@ -6,18 +6,61 @@
     <!-- 회원가입 폼 시작 -->
     <form>
         <div class="mb-3 mt-3">
-            <input type="text" class="form-control" placeholder="Enter username" required>
+            <input id="username" type="text" class="form-control" placeholder="Enter username" required maxlength="12">
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" placeholder="Enter password" required maxlength="12">
+            <input id="password" type="password" class="form-control" placeholder="Enter password" required
+                maxlength="12">
         </div>
         <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Enter email">
+            <input id="email" type="email" class="form-control" placeholder="Enter email" required maxlength="30">
         </div>
-        <button type="button" class="btn btn-primary">회원가입</button>
+        <div class="mb-3">
+            <input id="addr" type="text" class="form-control" placeholder="Enter addr" required maxlength="300">
+        </div>
+        <button id="btn-join" type="button" class="btn btn-primary">회원가입</button>
     </form>
     <!-- 회원가입 폼 끝 -->
 
 </div>
+
+<script>
+    // 1. 이벤트 리스너
+    $("#btn-join").click(() => {
+        join();
+    });
+
+    // 2. 기능
+    async function join() {
+        // (1) username, password, email, addr 을 찾아서 오브젝트로 만든다.
+        let userDto = {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            email: $("#email").val(),
+            addr: $("#addr").val()
+        }
+
+        // (2) fetch 요청한다. (json으로 변환해서)
+        let response = await fetch("/api/join", {
+            method: "POST",
+            body: JSON.stringify(userDto),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+        });
+        let responseParse = await response.json();
+        //console.log(responseParse);
+
+        // (3) 회원가입이 잘되면 알림창 띄우고 로그인 페이지로 이동한다.
+        if (responseParse.code == 1) {
+            alert("회원가입완료");
+            location.href = "/loginForm";
+        } else {
+            alert('회원가입실패');
+        }
+    }
+
+</script>
+
 <!-- 컨테이너 끝 -->
 {{> /layout/footer}}
