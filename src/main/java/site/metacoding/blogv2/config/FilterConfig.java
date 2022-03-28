@@ -2,19 +2,16 @@ package site.metacoding.blogv2.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import site.metacoding.blogv2.config.filter.MyFilter1;
 import site.metacoding.blogv2.config.filter.MyFilter2;
 
 // Controller, RestController, Repository, Service, Component, Configuration
 
-//@Configuration
+// @Component
+// @Configuration
 public class FilterConfig {
-
-    public FilterConfig() {
-        System.out.println("나 메모리(IoC컨테이너)에 뜸 FilterConfig");
-    }
 
     @Bean // IoC 컨테이너 필터 설정파일 등록
     public FilterRegistrationBean<?> filter1() {
