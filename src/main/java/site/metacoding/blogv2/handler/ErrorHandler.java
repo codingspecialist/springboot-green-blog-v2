@@ -1,7 +1,5 @@
 package site.metacoding.blogv2.handler;
 
-import org.hibernate.exception.SQLGrammarException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
