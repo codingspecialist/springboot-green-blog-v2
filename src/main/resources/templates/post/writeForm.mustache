@@ -6,17 +6,49 @@
     <!--  글쓰기 폼 시작 -->
     <form>
         <div class="mb-3 mt-3">
-            <input type="text" class="form-control" placeholder="Enter title">
+            <input id="title" type="text" class="form-control" placeholder="Enter title">
         </div>
         <div class="mb-3">
-            <textarea rows="10" class="form-control" id="content"></textarea>
+            <textarea id="content" rows="10" class="form-control" id="content"></textarea>
         </div>
-        <button type="button" class="btn btn-secondary">글쓰기</button>
+        <button id="btn-write" type="button" class="btn btn-secondary">글쓰기</button>
     </form>
     <!-- 글쓰기 폼 끝 -->
 
 </div>
 <!-- 컨테이너 끝 -->
+
+<script>
+    $("#btn-write").click(() => {
+        write();
+    });
+
+    async function write() {
+        let writeDto = {
+            title: $("#title").val(),
+            content: $("#content").val()
+        }
+
+        console.log(writeDto);
+
+        let response = await fetch("/s/post", {
+            method: "POST",
+            body: JSON.stringify(writeDto),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        });
+        let responseParse = await response.json();
+
+        if (responseParse.code == 1) {
+            alert("글쓰기 성공");
+            location.href = "/";
+        } else {
+            alert("글쓰기 실패");
+        }
+    }
+
+</script>
 
 <script>
     $('#content').summernote({
