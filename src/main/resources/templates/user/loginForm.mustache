@@ -23,6 +23,17 @@
 
 </div>
 <!-- 컨테이너 끝 -->
+
+<script>
+    // 유저네임 기억하기 함수 httpOnly 속성이 걸려있으면 안된다 주의하자!!
+    function usernameRemember() {
+        let cookies = document.cookie.split("=");
+        //console.log(cookies[1]);
+        $("#username").val(cookies[1]);
+    }
+    usernameRemember();
+</script>
+
 <script src="/js/user.js"></script>
 
 {{> /layout/footer}}

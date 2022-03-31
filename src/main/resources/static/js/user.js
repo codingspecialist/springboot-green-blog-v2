@@ -39,14 +39,6 @@ async function update() {
     }
 }
 
-// 유저네임 기억하기 함수 httpOnly 속성이 걸려있으면 안된다 주의하자!!
-function usernameRemember() {
-    let cookies = document.cookie.split("=");
-    //console.log(cookies[1]);
-    $("#username").val(cookies[1]);
-}
-usernameRemember();
-
 // 회원가입 요청 함수
 async function join() {
     // (1) username, password, email, addr 을 찾아서 오브젝트로 만든다.

@@ -5,18 +5,18 @@
 
     <!-- 회원수정 폼 시작 -->
     <form>
-        <input id="id" type="hidden" value="{{user.id}}">
+        <input id="id" type="hidden" value="{{principal.id}}">
         <div class="mb-3 mt-3">
-            <input id="username" type="text" class="form-control" value="{{user.username}}" readonly>
+            <input id="username" type="text" class="form-control" readonly>
         </div>
         <div class="mb-3">
-            <input id="password" type="password" class="form-control" value="{{user.password}}" required maxlength="12">
+            <input id="password" type="password" class="form-control" required maxlength="12">
         </div>
         <div class="mb-3">
-            <input id="email" type="email" class="form-control" value="{{user.email}}" required maxlength="30">
+            <input id="email" type="email" class="form-control" required maxlength="30">
         </div>
         <div class="mb-3">
-            <input id="addr" type="text" class="form-control" value="{{user.addr}}" required maxlength="300">
+            <input id="addr" type="text" class="form-control" required maxlength="300">
         </div>
         <button id="btn-update" type="button" class="btn btn-secondary">수정완료</button>
     </form>
@@ -24,6 +24,25 @@
 
 </div>
 <!-- 컨테이너 끝 -->
+<script>
+    async function loading() {
+        let id = $("#id").val();
+        let response = await fetch(`/s/api/user/${id}`);
+        let responseParse = await response.json();
+
+        if (responseParse.code == 1) {
+            // CSR 시작
+            $("#username").val(responseParse.data.username);
+            $("#password").val(responseParse.data.password);
+            $("#email").val(responseParse.data.email);
+            $("#addr").val(responseParse.data.addr);
+        } else {
+            alert("잘못된 요청입니다");
+            history.back(); // 뒤로가기
+        }
+    }
+    loading();
+</script>
 
 <script src="/js/user.js"></script>
 {{> /layout/footer}}
