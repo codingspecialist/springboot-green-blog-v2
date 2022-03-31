@@ -4,14 +4,15 @@
 <div class="container mt-3">
     <!-- 상세정보보기 시작 -->
     <div class="mb-3">
-        작성자 : 유저네임
+        작성자 : {{post.user.username}}
     </div>
     <div class="mb-3 mt-3">
-        <h1>제목입니다</h1>
+        <h1>{{post.title}}</h1>
     </div>
     <hr />
     <div class="mb-3">
-        내용입니다
+        <!-- 중괄호 3개 써야 html 태그 나옴!! 주의!! -->
+        {{{post.content}}}
     </div>
 
     <a href="/s/post/1/updateForm" class="btn btn-secondary">수정</a>
