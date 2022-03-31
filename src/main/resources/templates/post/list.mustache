@@ -4,20 +4,75 @@
 <div class="container mt-3">
 
     <!-- 게시글 아이템 시작 -->
-    <div class="card mb-3">
-        <div class="card-body">
-            <h4 class="card-title">제목입니다</h4>
-            <a href="/post/1" class="btn btn-secondary">상세보기</a>
-        </div>
+    <div id="post-box">
+
+
     </div>
     <!-- 게시글 아이템 끝 -->
 
     <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="?page=1">이전</a></li>
-        <li class="page-item"><a class="page-link" href="?page=1">다음</a></li>
+        <li id="li-prev" class="page-item"><a id="btn-prev" class="page-link" href="javascript:;">이전</a></li>
+        <li id="li-next" class="page-item"><a id="btn-next" class="page-link" href="javascript:;">다음</a></li>
     </ul>
 
 </div>
 <!-- 컨테이너 끝 -->
+
+<script>
+    let page = 0;
+
+    $("#btn-next").click(() => {
+        page++;
+        $("#post-box").empty();
+        loading();
+    });
+
+    $("#btn-prev").click(() => {
+        page--;
+        $("#post-box").empty();
+        loading();
+    });
+
+    // 페이징 완료!!
+    function pagingDisable(responseParse) {
+        if (responseParse.data.first == true) {
+            $("#li-prev").addClass("disabled");
+            $("#li-next").removeClass("disabled");
+        } else if (responseParse.data.last == true) {
+            $("#li-next").addClass("disabled");
+            $("#li-prev").removeClass("disabled");
+        }
+    }
+
+    async function loading() {
+        let response = await fetch(`/api/post?page=${page}`);
+        let responseParse = await response.json();
+
+        if (responseParse.code == 1) {
+            pagingDisable(responseParse); // 페이징 버튼 활성화 처리
+
+            //console.log(responseParse);
+            responseParse.data.content.forEach((post) => {
+                //console.log(post);
+                $("#post-box").append(postItemRender(post));
+            });
+        } else {
+            alert("잘못된 요청입니다");
+        }
+    }
+
+    function postItemRender(post) {
+        return `<div class="card mb-3">
+            <div class="card-body">
+                <h4 class="card-title">${post.title}</h4>
+                <a href="/post/${post.id}" class="btn btn-secondary">상세보기</a>
+            </div>
+        </div>`;
+    }
+
+    loading();
+
+</script>
+
 
 {{> /layout/footer}}
