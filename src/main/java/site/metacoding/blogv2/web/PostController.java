@@ -20,6 +20,8 @@ public class PostController {
 
     @GetMapping("/post/{id}")
     public String detail(@PathVariable Integer id, Model model) {
+        Post postEntity = postService.글상세보기(id);
+        model.addAttribute("comments", postEntity.getComments());
         model.addAttribute("postId", id);
         return "post/detail";
     }
