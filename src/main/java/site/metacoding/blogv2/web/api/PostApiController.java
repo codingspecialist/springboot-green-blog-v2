@@ -1,12 +1,9 @@
 package site.metacoding.blogv2.web.api;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +23,13 @@ import site.metacoding.blogv2.web.api.dto.post.WriteDto;
 public class PostApiController {
     private final PostService postService;
     private final HttpSession session;
+
+    @DeleteMapping("/s/api/post/{id}")
+    public ResponseDto<?> deleteById(@PathVariable Integer id) {
+        postService.글삭제하기(id);
+
+        return new ResponseDto<>(1, "성공", null);
+    }
 
     @GetMapping("/api/post/{id}")
     public ResponseDto<?> detail(@PathVariable Integer id) {

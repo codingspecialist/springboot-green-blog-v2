@@ -20,6 +20,11 @@ import site.metacoding.blogv2.domain.post.PostRepository;
 public class PostService {
     private final PostRepository postRepository;
 
+    @Transactional
+    public void 글삭제하기(Integer id) {
+        postRepository.deleteById(id);
+    }
+
     public Post 글상세보기(Integer id) {
         Optional<Post> postOp = postRepository.findById(id);
 
