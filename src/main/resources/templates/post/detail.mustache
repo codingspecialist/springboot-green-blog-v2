@@ -41,10 +41,12 @@
 
             {{#comments}}
             <li class="list-group-item d-flex justify-content-between">
-                <div>{{content}}</div>
+                <div>{{comment.content}}</div>
                 <div class="d-flex">
-                    <div class="font-italic">작성자 : {{user.username}} &nbsp;</div>
-                    <button class="badge bg-primary">삭제</button>
+                    <div class="font-italic">작성자 : {{comment.user.username}} &nbsp;</div>
+                    {{#auth}}
+                    <button class="badge bg-primary" onclick="deleteComment('{{comment.id}}');">삭제</button>
+                    {{/auth}}
                 </div>
             </li>
             {{/comments}}
@@ -56,6 +58,22 @@
 
 </div>
 <!-- 컨테이너 끝 -->
+
+<script>
+    async function deleteComment(commentId) {
+        let response = await fetch(`/s/api/comment/${commentId}`, {
+            method: "DELETE"
+        });
+        let responseParse = await response.json();
+
+        if (responseParse.code == 1) {
+            alert("삭제 성공");
+            location.reload(); // ajax + ssr
+        } else {
+            alert("삭제 실패");
+        }
+    }
+</script>
 
 <script src="/js/post.js"></script>
 <script>

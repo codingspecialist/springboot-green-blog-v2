@@ -31,8 +31,11 @@ public class PostApiController {
         return new ResponseDto<>(1, "성공", null);
     }
 
+    //
     @GetMapping("/api/post/{id}")
     public ResponseDto<?> detail(@PathVariable Integer id) {
+        //
+
         Post postEntity = postService.글상세보기(id);
         User principal = (User) session.getAttribute("principal");
         boolean auth = false;
@@ -46,7 +49,9 @@ public class PostApiController {
 
         DetailResponseDto detailResponseDto = new DetailResponseDto(postEntity, auth); // comment null
         return new ResponseDto<>(1, "성공", detailResponseDto); // comment 생성됨 = MessageConverter
+        //
     }
+    //
 
     @GetMapping("/api/post")
     public ResponseDto<?> list(Integer page) {
