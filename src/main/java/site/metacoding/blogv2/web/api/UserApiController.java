@@ -56,6 +56,7 @@ public class UserApiController {
 
     @PostMapping("/join")
     public ResponseDto<?> join(@RequestBody JoinDto joinDto) {
+
         userService.회원가입(joinDto);
         return new ResponseDto<>(1, "회원가입성공", null);
     }

@@ -2,24 +2,53 @@
 
 <!-- 컨테이너 시작 -->
 <div class="container mt-3">
+    <input type="hidden" id="postId" value="{{postId}}">
     <!-- 상세정보보기 시작 -->
     <div class="mb-3">
-        작성자 : {{post.user.username}}
+        작성자 : <span id="username"></span>
     </div>
     <div class="mb-3 mt-3">
-        <h1>{{post.title}}</h1>
+        <h1 id="title"></h1>
     </div>
     <hr />
-    <div class="mb-3">
+    <div class="mb-3" id="content">
         <!-- 중괄호 3개 써야 html 태그 나옴!! 주의!! -->
-        {{{post.content}}}
     </div>
 
-    <a href="/s/post/1/updateForm" class="btn btn-secondary">수정</a>
-    <button class="btn btn-danger">삭제</button>
-
+    <div id="auth-box" style="display: none;">
+        <a href="/s/post/1/updateForm" class="btn btn-secondary">수정</a>
+        <button class="btn btn-danger">삭제</button>
+    </div>
     <!-- 상세정보보기 끝 -->
 </div>
 <!-- 컨테이너 끝 -->
+
+<script>
+    async function loading() {
+        //console.log(location.href);
+        let postId = $("#postId").val();
+        let response = await fetch(`/api/post/${postId}`);
+        let responseParse = await response.json();  // text(), json()
+        console.log(responseParse);
+        userInfoRender(responseParse);
+    }
+
+    function userInfoRender(responseParse) {
+        let username = responseParse.data.post.user.username;
+        let title = responseParse.data.post.title;
+        let content = responseParse.data.post.content;
+        let auth = responseParse.data.auth; // 권한이 있는지 없는지 판단해서 true, false
+
+        if (auth == true) {
+            $("#auth-box").css("display", "block");
+        }
+
+        $("#username").text(username);
+        $("#title").text(title);
+        $("#content").html(content);
+    }
+
+    loading();
+</script>
 
 {{> /layout/footer}}
