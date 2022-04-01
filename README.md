@@ -1,5 +1,9 @@
 # 블로그 V2 코드 연습
 
+### 남은 기능
+- 프로필 사진 업로드
+- 글 수정하기
+
 ### 1. 디비 및 사용자 생성
 ```sql
 CREATE USER 'green'@'%' IDENTIFIED BY 'green1234';
