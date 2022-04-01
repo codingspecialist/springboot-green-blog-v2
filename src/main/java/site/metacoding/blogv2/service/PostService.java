@@ -33,6 +33,10 @@ public class PostService {
         } else {
             throw new RuntimeException("해당 게시글을 찾을 수 없습니다");
         }
+
+        // 조회수 증가
+
+        // 인기 게시물 처리~!!
     }
 
     public Page<Post> 게시글목록(Integer page) {

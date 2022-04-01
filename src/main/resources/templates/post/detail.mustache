@@ -20,30 +20,41 @@
         <button id="btn-delete" class="btn btn-danger">삭제</button>
     </div>
     <!-- 상세정보보기 끝 -->
+
+    <!-- 댓글 시작 -->
+
+    <div class="card">
+        <form action="/s/post/{{postId}}/comment" method="post">
+            <div class="card-body">
+                <textarea name="content" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">등록</button>
+            </div>
+        </form>
+    </div>
+    <br />
+
+    <div class="card">
+        <div class="card-header"><b>댓글 리스트</b></div>
+        <ul id="reply-box" class="list-group">
+            <li id="reply-1" class="list-group-item d-flex justify-content-between">
+                <div>댓글입니다</div>
+                <div class="d-flex">
+                    <div class="font-italic">작성자 : 홍길동 &nbsp;</div>
+                    <button class="badge bg-primary">삭제</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <br />
+    <!-- 댓글 끝 -->
+
 </div>
 <!-- 컨테이너 끝 -->
 
+<script src="/js/post.js"></script>
 <script>
-
-    $("#btn-delete").click(() => {
-        deletePost();
-    });
-
-    async function deletePost() {
-        let postId = $("#postId").val();
-        let response = await fetch(`/s/api/post/${postId}`, {
-            method: "DELETE" // delete는 body가 없다.
-        });
-        let responseParse = await response.json();
-
-        if (responseParse.code == 1) {
-            alert("삭제성공");
-            location.href = "/";
-        } else {
-            alert("삭제실패");
-        }
-    }
-
     async function loading() {
         //console.log(location.href);
         let postId = $("#postId").val();
